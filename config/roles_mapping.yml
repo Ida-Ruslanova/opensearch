@@ -1,0 +1,54 @@
+$ cat ./config/roles_mapping.yml
+
+---
+
+_meta:
+  type: "rolesmapping"
+  config_version: 2
+
+all_access:
+  reserved: false
+  backend_roles:
+  - "admin"
+  - "Administrator"
+  - "opensearch"
+  description: "Maps admin to all_access"
+
+own_index:
+  reserved: false
+  users:
+  - "*"
+  description: "Allow full access to an index named like the username"
+
+logstash:
+  reserved: false
+  hidden: false
+  backend_roles:
+  - "logstash"
+#  hosts: []
+#  users: []
+#  and_backend_roles: []
+
+kibana_user:
+  reserved: false
+  backend_roles:
+  - "kibanauser"
+  - "Developers"
+  description: "Maps kibanauser to kibana_user"
+
+readall:
+  reserved: false
+  backend_roles:
+  - "readall"
+  - "Developers"
+
+manage_snapshots:
+  reserved: false
+  backend_roles:
+  - "snapshotrestore"
+  - "Developers"
+
+kibana_server:
+  reserved: true
+  users:
+  - "kibanaserver"
