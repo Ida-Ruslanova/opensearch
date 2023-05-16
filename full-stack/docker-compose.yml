@@ -17,8 +17,8 @@ services:
     ports:
       - 9200:9200
     environment:
-      TIMEZONE: America/Sao_Paulo
-      TZ: America/Sao_Paulo
+      TIMEZONE: Europe/Berlin
+      TZ: Europe/Berlin
       OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
 
   opensearch-dashboards:
@@ -35,8 +35,8 @@ services:
     ports:
       - 5601:5601
     environment:
-      TIMEZONE: America/Sao_Paulo
-      TZ: America/Sao_Paulo
+      TIMEZONE: Europe/Berlin
+      TZ: Europe/Berlin
       LS_JAVA_OPTS: "-Xmx1g -Xms256m"
     depends_on:
       - opensearch
@@ -64,8 +64,8 @@ services:
     ports:
       - 5000:5000
     environment:
-      TIMEZONE: America/Sao_Paulo
-      TZ: America/Sao_Paulo
+      TIMEZONE: Europe/Berlin
+      TZ: Europe/Berlin
       LS_JAVA_OPTS: "-Xmx1g -Xms256m"
       LS_OPTS: "--config.reload.automatic"
 
@@ -80,11 +80,11 @@ services:
         source: ./filebeat/filebeat.yml
         target: /usr/share/filebeat/filebeat.yml
       - type: bind
-        source: ./filebeat/log
+        source: /c/Users/xxmahamm/Documents/logs
         target: /var/log
     environment:
-      TIMEZONE: America/Sao_Paulo
-      TZ: America/Sao_Paulo
+      TIMEZONE: Europe/Berlin
+      TZ: Europe/Berlin
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
       HOSTNAME: filebeat
 
@@ -112,18 +112,18 @@ services:
       - 9093:9093
     restart: always
 
-  grafana:
-    image: grafana/grafana:9.1.5
-    container_name: grafana
-    ports:
-      - 3000:3000
-    environment:
-      - GF_INSTALL_PLUGINS=grafana-opensearch-datasource
-    volumes:
-      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
-      - ./grafana/provisioning/dashboards/:/etc/grafana/provisioning/dashboards/
-      - ./grafana/provisioning/datasources/:/etc/grafana/provisioning/datasources/
-      - ./grafana/provisioning/dashboards-tree-json/:/etc/dashboards/dashboards-tree-json/
+  # grafana:
+  #   image: grafana/grafana:9.1.5
+  #   container_name: grafana
+  #   ports:
+  #     - 3000:3000
+  #   environment:
+  #     - GF_INSTALL_PLUGINS=grafana-opensearch-datasource
+  #   volumes:
+  #     - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+  #     - ./grafana/provisioning/dashboards/:/etc/grafana/provisioning/dashboards/
+  #     - ./grafana/provisioning/datasources/:/etc/grafana/provisioning/datasources/
+  #     - ./grafana/provisioning/dashboards-tree-json/:/etc/dashboards/dashboards-tree-json/
 
   opensearch_exporter:
     # https://github.com/prometheus-community/elasticsearch_exporter

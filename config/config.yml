@@ -1,0 +1,74 @@
+---
+_meta:
+  type: "config"
+  config_version: 2
+
+config:
+  dynamic:
+    http:
+      anonymous_auth_enabled: false
+    authc:
+      internal_auth:
+        order: 0
+        description: "HTTP basic authentication using the internal user database"
+        http_enabled: true
+        transport_enabled: true
+        http_authenticator:
+          type: basic
+          challenge: true
+        authentication_backend:
+          type: internal
+      ldap_auth:
+        order: 5
+        description: "Authenticate using FreeIPA"
+        http_enabled: true
+        transport_enabled: true
+        http_authenticator:
+          type: basic
+          challenge: true
+        authentication_backend:
+          type: ldap
+          config:
+            enable_ssl: false
+            enable_start_tls: false
+            enable_ssl_client_auth: false
+            verify_hostnames: true
+            hosts:
+            - ipa.test.ru
+            bind_dn: 'uid=opensearch,cn=users,cn=accounts,dc=test,dc=ru'
+            password: 'passwd'
+            userbase: 'cn=users,cn=accounts,dc=test,dc=ru'
+            usersearch: '(uid={0})'
+            username_attribute: 'uid'
+
+    authz:
+      ldap_roles:
+        description: "Authorize using FreeIPA"
+        http_enabled: true
+        transport_enabled: true
+        authorization_backend:
+          type: ldap
+          config:
+            enable_ssl: false
+            enable_start_tls: false
+            enable_ssl_client_auth: false
+            verify_hostnames: true
+            hosts:
+            - 00sr-freeipa-01.gge.local
+            bind_dn: 'uid=opensearch,cn=users,cn=accounts,dc=test,dc=ru'
+            password: 'passwd'
+            userbase: 'cn=users,cn=accounts,dc=test,dc=ru'
+            usersearch: '(uid={0})'
+            username_attribute: 'uid'
+            skip_users:
+              - admin
+              - kibanaserver
+            rolebase: 'cn=opensearch,cn=groups,cn=accounts,dc=gge,dc=local'
+#            rolesearch: '(memberUid={0})'
+            rolesearch: '(memberUid={1})'
+            userroleattribute: null
+            userrolename: memberOf
+#            userrolename: disabled
+#            userrolename: null
+            rolename: cn
+            resolve_nested_roles: true
