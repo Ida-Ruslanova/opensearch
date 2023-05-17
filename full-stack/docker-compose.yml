@@ -6,7 +6,7 @@ services:
     build:
       context: opensearch/
       args:
-        TAG_VERSION: 1.2.4
+        TAG_VERSION: 2.7.0
     volumes:
       - type: bind
         source: ./opensearch/opensearch.yml
@@ -26,7 +26,7 @@ services:
     build:
       context: opensearch-dashboards/
       args:
-        TAG_VERSION: 1.2.0
+        TAG_VERSION: 2.7.0
     volumes:
       - type: bind
         source: ./opensearch-dashboards/opensearch_dashboards.yml
@@ -80,7 +80,7 @@ services:
         source: ./filebeat/filebeat.yml
         target: /usr/share/filebeat/filebeat.yml
       - type: bind
-        source: ./filebeat/log
+        source: /c/Users/xxruslaz/Documents/logs
         target: /var/log
     environment:
       TIMEZONE: America/Sao_Paulo
