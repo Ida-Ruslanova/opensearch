@@ -88,56 +88,6 @@ services:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
       HOSTNAME: filebeat
 
-  # prometheus:
-  #   image: prom/prometheus:latest
-  #   container_name: prometheus
-  #   command:
-  #     - '--config.file=/etc/prometheus/prometheus.yaml'
-  #   volumes:
-  #     - ./prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml
-  #     - ./prometheus/rules.yaml:/etc/prometheus/rules.yaml
-  #   ports:
-  #     - 9090:9090
-  #   restart: always
-
-  # alertmanager:
-  #   image: prom/alertmanager:latest
-  #   container_name: alertmanager
-  #   command:
-  #     - '--config.file=/etc/alertmanager/config.yml'
-  #   volumes:
-  #     - ./alertmanager/pruu.yaml:/etc/alertmanager/config.yml
-  #     - ./alertmanager/templates.tmpl:/etc/alertmanager/configmaps/templates.tmpl
-  #   ports:
-  #     - 9093:9093
-  #   restart: always
-
-  # grafana:
-  #   image: grafana/grafana:9.1.5
-  #   container_name: grafana
-  #   ports:
-  #     - 3000:3000
-  #   environment:
-  #     - GF_INSTALL_PLUGINS=grafana-opensearch-datasource
-  #   volumes:
-  #     - ./grafana/grafana.ini:/etc/grafana/grafana.ini
-  #     - ./grafana/provisioning/dashboards/:/etc/grafana/provisioning/dashboards/
-  #     - ./grafana/provisioning/datasources/:/etc/grafana/provisioning/datasources/
-  #     - ./grafana/provisioning/dashboards-tree-json/:/etc/dashboards/dashboards-tree-json/
-
-  # opensearch_exporter:
-  #   # https://github.com/prometheus-community/elasticsearch_exporter
-  #   build:
-  #     context: opensearch-exporter/
-  #   container_name: opensearch-exporter
-  #   restart: always
-  #   command:
-  #     - '--es.uri=http://opensearch:9200'
-  #     - '--es.ssl-skip-verify'
-  #     - '--es.timeout=5m'
-  #   ports:
-  #     - 9114:9114
-
   localstack:
     container_name: "localstack-server"
     image: localstack/localstack
